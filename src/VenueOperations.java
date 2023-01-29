@@ -84,11 +84,6 @@ public class VenueOperations {
         }
     }
 
-    public void editVenue() {
-        getAllVenues();
-        System.out.println("ENTER THE ");
-    }
-
     public void deleteVenue() {
         try {
             Scanner sc = new Scanner(System.in);
