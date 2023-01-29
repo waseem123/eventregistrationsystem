@@ -31,25 +31,24 @@ public class Operations {
         AttendeeOperations attendeeOperations = new AttendeeOperations();
         while (true) {
             System.out.println("1. REGISTER AN ATTENDEE");
-            System.out.println("2. EDIT AN ATTENDEE");
-            System.out.println("3. SEARCH AN ATTENDEE");
-            System.out.println("4. DELETE AN ATTENDEE");
+            System.out.println("2. SEARCH AN ATTENDEE");
+            System.out.println("3. DELETE AN ATTENDEE");
+            System.out.println("4. BACK TO MAIN MENU");
 
             switch (sc.nextInt()) {
                 case 1:
                     attendeeOperations.registerAttendee();
                     break;
-
                 case 2:
-                    attendeeOperations.editAttendee();
-                    break;
-
-                case 3:
                     attendeeOperations.searchAttendee();
                     break;
-                case 4:
+                case 3:
                     attendeeOperations.deleteAttendee();
                     break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("NOT A VALID CHOICE");
             }
         }
     }
@@ -59,21 +58,50 @@ public class Operations {
         EventOperations eventOperations = new EventOperations();
         while (true) {
             System.out.println("1. REGISTER AN EVENT");
-            System.out.println("2. EDIT AN EVENT");
-            System.out.println("3. DELETE AN EVENT");
+            System.out.println("2. DELETE AN EVENT");
+            System.out.println("3. DISPLAY EVENTS");
+            System.out.println("3. BACK TO MAIN MENU");
 
             switch (sc.nextInt()) {
                 case 1:
                     eventOperations.registerEvent();
                     break;
-
                 case 2:
-                    eventOperations.editEvent();
-                    break;
-
-                case 3:
                     eventOperations.deleteEvent();
                     break;
+                case 3:
+                    eventOperations.getAllEvents();
+                case 4:
+                    return;
+                default:
+                    System.out.println("NOT A VALID CHOICE");
+            }
+        }
+    }
+
+    public void getVenueMenu() {
+        Scanner sc = new Scanner(System.in);
+        VenueOperations venueOperations = new VenueOperations();
+        while (true) {
+            System.out.println("1. ADD VENUE");
+            System.out.println("2. DELETE VENUE");
+            System.out.println("3. DISPLAY ALL VENUES");
+            System.out.println("4. BACK TO MAIN MENU");
+
+            switch (sc.nextInt()) {
+                case 1:
+                    venueOperations.addVenue();
+                    break;
+                case 2:
+                    venueOperations.deleteVenue();
+                    break;
+                case 3:
+                    venueOperations.getAllVenues();
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("NOT A VALID CHOICE");
             }
         }
     }

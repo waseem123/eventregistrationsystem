@@ -7,4 +7,7 @@ public class EventOperations {
 
     public void deleteEvent() {
     }
+
+    public void getAllEvents() {
+    }
 }
