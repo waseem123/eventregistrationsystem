@@ -63,7 +63,8 @@ public class Operations {
             System.out.println("2. CANCEL AN EVENT");
             System.out.println("3. DELETE AN EVENT");
             System.out.println("4. DISPLAY EVENTS");
-            System.out.println("5. BACK TO MAIN MENU");
+            System.out.println("5. RESET DATA");
+            System.out.println("6. BACK TO MAIN MENU");
 
             switch (sc.nextInt()) {
                 case 1:
@@ -79,6 +80,7 @@ public class Operations {
                     eventOperations.getAllEvents();
                     break;
                 case 5:
+                    eventOperations.resetData();
                     return;
                 default:
                     System.out.println("NOT A VALID CHOICE");

@@ -82,7 +82,43 @@ public class EventOperations {
         return null;
     }
 
-    public void deleteEvent() {
+    public void deleteEvent() throws IOException {
+        Scanner sc = new Scanner(System.in);
+        List<Events> events = getEvents(file_bookings);
+        if (events.size() == 0) {
+            System.out.println("ERROR : NO EVENTS BOOKED AT THIS MOMENT.");
+            return;
+        }
+        getAllEvents();
+        System.out.print("ENTER AN EVENT ID YOU WANT TO DELETE - ");
+        int eventId = sc.nextInt();
+        if (events.size() < eventId)
+            System.out.println("ERROR : INVALID EVENT ID.");
+        else if (isPresent(eventId)) {
+            events.remove(eventId - 1);
+            FileWriter fileWriter = new FileWriter(file_bookings);
+            String data = "";
+            for (Events event : events) {
+                data += event;
+            }
+            fileWriter.write(data);
+            fileWriter.close();
+            System.out.println("EVENT DELETED SUCCESSFULLY.");
+        }else
+            System.out.println("ERROR : EVENT NOT PRESENT FOR THE GIVEN ID.");
+    }
+
+    private boolean isPresent(int eventId) {
+        List<Events> events = getEvents(file_bookings);
+        boolean flag = false;
+        eventId -= 1;
+        for (Events e : events) {
+            if (e.getEventId() == eventId) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
     }
 
     public void getAllEvents() {
@@ -105,7 +141,7 @@ public class EventOperations {
         }
     }
 
-    public void cancelEvent() {
+    public void cancelEvent() throws IOException {
         Scanner sc = new Scanner(System.in);
         List<Events> events = getEvents(file_bookings);
         if (events.size() == 0) {
@@ -115,13 +151,30 @@ public class EventOperations {
         getAllEvents();
         System.out.print("ENTER AN EVENT ID YOU WANT TO CANCEL - ");
         int eventId = sc.nextInt();
-
-
         if (events.size() < eventId)
             System.out.println("ERROR : INVALID EVENT ID.");
         else {
+
             events.get(eventId - 1).setEventStatus("CANCELLED");
+            FileWriter fileWriter = new FileWriter(file_bookings);
+            String data = "";
+            for (Events event : events) {
+                data += event;
+            }
+            fileWriter.write(data);
+            fileWriter.close();
             System.out.println("EVENT CANCELLED SUCCESSFULLY.");
+        }
+    }
+
+    public void resetData() {
+        try {
+            FileWriter fileWriter = new FileWriter(file_bookings);
+            fileWriter.write("");
+            fileWriter.close();
+            System.out.println("EVENTS DATA RESET SUCCESSFUL.");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
