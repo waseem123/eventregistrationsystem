@@ -1,4 +1,5 @@
 import java.io.File;
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class Operations {
@@ -53,7 +54,7 @@ public class Operations {
         }
     }
 
-    public void getEventMenu() {
+    public void getEventMenu() throws ParseException {
         Scanner sc = new Scanner(System.in);
         EventOperations eventOperations = new EventOperations();
         while (true) {

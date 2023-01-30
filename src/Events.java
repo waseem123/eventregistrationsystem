@@ -1,16 +1,20 @@
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Events {
     private int eventId;
     private String eventName;
     private Date eventDate;
-    private boolean booked;
+    private String eventOrganizer;
 
-    public Events(int eventId, String eventName, Date eventDate, boolean booked) {
+    public Events() {
+    }
+
+    public Events(int eventId, String eventName, Date eventDate, String eventOrganizer) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventDate = eventDate;
-        this.booked = booked;
+        this.eventOrganizer = eventOrganizer;
     }
 
     public int getEventId() {
@@ -37,16 +41,16 @@ public class Events {
         this.eventDate = eventDate;
     }
 
-    public boolean isBooked() {
-        return booked;
+    public String getEventOrganizer() {
+        return eventOrganizer;
     }
 
-    public void setBooked(boolean booked) {
-        this.booked = booked;
+    public void setEventOrganizer(String eventOrganizer) {
+        this.eventOrganizer = eventOrganizer;
     }
 
     @Override
     public String toString() {
-        return eventId +":" + eventName + ":" + eventDate +":" + booked+";";
+        return "{" + eventId + ":" + eventName + ":" + eventOrganizer + ":" + new SimpleDateFormat("dd-MM-yyyy").format(eventDate) + "}";
     }
 }

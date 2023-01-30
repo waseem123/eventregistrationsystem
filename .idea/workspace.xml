@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2011e1c-a8ce-4e67-bb2a-8f30659264da" name="Changes" comment="Main Menu and Sub-Menu">
-      <change afterPath="$PROJECT_DIR$/src/Booking.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BookingOperation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Events.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/booking.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BookingOperation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookingOperation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/EventOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VenueOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VenueOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Events.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Events.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Operations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Operations.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,14 +33,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "G:/slearn/EventRegistrationSystem/src"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;G:/slearn/EventRegistrationSystem/src&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="" />
