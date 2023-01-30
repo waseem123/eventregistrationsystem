@@ -92,10 +92,9 @@ public class EventOperations {
         getAllEvents();
         System.out.print("ENTER AN EVENT ID YOU WANT TO DELETE - ");
         int eventId = sc.nextInt();
-        if (events.size() < eventId)
-            System.out.println("ERROR : INVALID EVENT ID.");
-        else if (isPresent(eventId)) {
-            events.remove(eventId - 1);
+        int index = getEvent(eventId);
+        if (index != -1) {
+            events.remove(index);
             FileWriter fileWriter = new FileWriter(file_bookings);
             String data = "";
             for (Events event : events) {
@@ -104,21 +103,18 @@ public class EventOperations {
             fileWriter.write(data);
             fileWriter.close();
             System.out.println("EVENT DELETED SUCCESSFULLY.");
-        }else
+        } else
             System.out.println("ERROR : EVENT NOT PRESENT FOR THE GIVEN ID.");
     }
 
-    private boolean isPresent(int eventId) {
+    private int getEvent(int eventId) {
         List<Events> events = getEvents(file_bookings);
-        boolean flag = false;
-        eventId -= 1;
         for (Events e : events) {
             if (e.getEventId() == eventId) {
-                flag = true;
-                break;
+                return events.indexOf(e);
             }
         }
-        return flag;
+        return -1;
     }
 
     public void getAllEvents() {
@@ -151,11 +147,9 @@ public class EventOperations {
         getAllEvents();
         System.out.print("ENTER AN EVENT ID YOU WANT TO CANCEL - ");
         int eventId = sc.nextInt();
-        if (events.size() < eventId)
-            System.out.println("ERROR : INVALID EVENT ID.");
-        else {
-
-            events.get(eventId - 1).setEventStatus("CANCELLED");
+        int index = getEvent(eventId);
+        if (index != -1) {
+            events.get(index).setEventStatus("CANCELLED");
             FileWriter fileWriter = new FileWriter(file_bookings);
             String data = "";
             for (Events event : events) {
@@ -164,6 +158,8 @@ public class EventOperations {
             fileWriter.write(data);
             fileWriter.close();
             System.out.println("EVENT CANCELLED SUCCESSFULLY.");
+        }else{
+            System.out.println("INVALID EVENT ID.");
         }
     }
 
