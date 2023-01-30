@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -54,14 +55,14 @@ public class Operations {
         }
     }
 
-    public void getEventMenu() throws ParseException {
+    public void getEventMenu() throws ParseException, IOException {
         Scanner sc = new Scanner(System.in);
         EventOperations eventOperations = new EventOperations();
         while (true) {
             System.out.println("1. REGISTER AN EVENT");
             System.out.println("2. DELETE AN EVENT");
             System.out.println("3. DISPLAY EVENTS");
-            System.out.println("3. BACK TO MAIN MENU");
+            System.out.println("4. BACK TO MAIN MENU");
 
             switch (sc.nextInt()) {
                 case 1:

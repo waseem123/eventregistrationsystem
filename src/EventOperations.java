@@ -1,54 +1,76 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class EventOperations {
-    private String file_booking = "src/booking.txt";
+    private String file_bookings = "src/booking.txt";
 
-    public void registerEvent() throws ParseException {
+    public void registerEvent() throws IOException, ParseException {
         Scanner sc = new Scanner(System.in);
         System.out.println("ENTER THE DATE OF EVENT IN DD-MM-YYYY FORMAT - ");
         String eventDate = sc.next();
-
-        if(!isVenueBooked(eventDate)){
+        if (!isEventBooked(eventDate)) {
             /*BOOKING LOGIC*/
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("ENTER EVENT NAME - ");
-            String eventName = sc.nextLine();
-            sc.nextLine();
+            String eventName = br.readLine();
             System.out.println("ENTER EVENT ORGANIZER'S NAME - ");
-            String eventOrganizer = sc.nextLine();
-            Events event = new Events();
-            event.setEventName(eventName);
-            event.setEventOrganizer(eventOrganizer);
-            event.setEventDate(new SimpleDateFormat("dd-MM-yyyy").parse(eventDate));
-            Booking booking = new Booking();
-            booking.setEvent(event);
-            booking.setBookingDate(Date.from(Instant.now()));
+            String eventOrganizer = br.readLine();
+            List<Events> events = getEvents(file_bookings);
+            Events event;
+            int id = 0;
+            if (events.size() > 0)
+                id = events.get(events.size() - 1).getEventId();
+            event = new Events(id + 1, eventName, eventDate, eventOrganizer, new SimpleDateFormat("dd-MM-yyyy").format(Date.from(Instant.now())), "ACTIVE");
+            events.add(event);
 
-            File file = new File(file_booking);
+            File file = new File(file_bookings);
             FileWriter fw;
             try {
                 fw = new FileWriter(file, true);
-                fw.write(booking.toString());
+                fw.write(event.toString());
                 fw.close();
-                System.out.println("VENUE HAS BEEN BOOKED SUCCESSFULLY.");
+                System.out.println("EVENT HAS BEEN BOOKED SUCCESSFULLY.");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }else{
+        } else {
             System.out.println("ERROR : ANOTHER EVENT IS ALREADY BOOKED FOR THE SAME DATE.");
         }
     }
 
-    private boolean isVenueBooked(String eventDate) throws ParseException {
+    private List<Events> getEvents(String file_bookings) {
+        List<Events> events = new ArrayList<>();
+        File file = new File(file_bookings);
+        Scanner sc;
+        try {
+            sc = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        while (sc.hasNext()) {
+            String[] lines = sc.nextLine().split(",");
+            for (String line : lines) {
+                String[] content = line.split(":");
+                events.add(new Events(
+                        Integer.parseInt(content[0]),
+                        content[1],
+                        content[2],
+                        content[3],
+                        content[4],
+                        content[5])
+                );
+            }
+        }
+        return events;
+    }
 
-        Date date = new SimpleDateFormat("dd-MM-yyyy").parse(eventDate);
-//        Booking b = getAllEvents();
+    private boolean isEventBooked(String eventDate) throws ParseException {
         return false;
     }
 
@@ -56,5 +78,22 @@ public class EventOperations {
     }
 
     public void getAllEvents() {
+        displayEvents(getEvents(file_bookings));
+    }
+
+    private void displayEvents(List<Events> events) {
+        if (events.size() > 0) {
+            System.out.println("========================================================================");
+            System.out.printf("%5s %11s %11s %15s %15s %9s", "ID", "EVENT NAME", "ORGANIZER", "BOOKING DATE", "EVENT DATE", "STATUS");
+            System.out.println();
+            System.out.println("========================================================================");
+            for (Events event : events) {
+                System.out.printf("%5s %11s %11s %15s %15s %9s", event.getEventId(), event.getEventName(), event.getEventOrganizer(), event.getBookingDate(), event.getEventDate(), event.getEventStatus());
+                System.out.println();
+            }
+            System.out.println("========================================================================");
+        } else {
+            System.out.println("ERROR : NO DATA PRESENT AT THIS MOMENT.");
+        }
     }
 }

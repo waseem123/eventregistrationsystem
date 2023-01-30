@@ -3,7 +3,7 @@ import java.util.Date;
 public class Booking {
     private int bookingId;
     private Events event;
-    private Date bookingDate;
+    private String bookingDate;
 
 
     public int getBookingId() {
@@ -22,11 +22,11 @@ public class Booking {
         this.event = event;
     }
 
-    public Date getBookingDate() {
+    public String getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(Date bookingDate) {
+    public void setBookingDate(String bookingDate) {
         this.bookingDate = bookingDate;
     }
 
