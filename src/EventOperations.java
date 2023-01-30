@@ -16,7 +16,7 @@ public class EventOperations {
         System.out.println("ENTER THE DATE OF EVENT IN DD-MM-YYYY FORMAT - ");
         String eventDate = sc.next();
         Events bookedEvent = getBookedEvent(eventDate);
-        if (bookedEvent == null || bookedEvent.getEventStatus().equals("CANCELLED")) {
+        if (bookedEvent == null) {
             /*BOOKING LOGIC*/
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("ENTER EVENT NAME - ");
@@ -36,6 +36,34 @@ public class EventOperations {
             try {
                 fw = new FileWriter(file, true);
                 fw.write(event.toString());
+                fw.close();
+                System.out.println("EVENT HAS BEEN BOOKED SUCCESSFULLY.");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (bookedEvent.getEventStatus().equals("CANCELLED")) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("ENTER EVENT NAME - ");
+            String eventName = br.readLine();
+            System.out.println("ENTER EVENT ORGANIZER'S NAME - ");
+            String eventOrganizer = br.readLine();
+            List<Events> events = getEvents(file_bookings);
+            int index = getEvent(bookedEvent.getEventId());
+            events.get(index).setEventName(eventName);
+            events.get(index).setEventOrganizer(eventOrganizer);
+            events.get(index).setEventDate(eventDate);
+            events.get(index).setBookingDate(new SimpleDateFormat("dd-MM-YYYY").format(Date.from(Instant.now())));
+            events.get(index).setEventStatus("ACTIVE");
+
+            String data = "";
+            for (Events e : events) {
+                data += e;
+            }
+            File file = new File(file_bookings);
+            FileWriter fw;
+            try {
+                fw = new FileWriter(file);
+                fw.write(data);
                 fw.close();
                 System.out.println("EVENT HAS BEEN BOOKED SUCCESSFULLY.");
             } catch (IOException e) {
@@ -158,7 +186,7 @@ public class EventOperations {
             fileWriter.write(data);
             fileWriter.close();
             System.out.println("EVENT CANCELLED SUCCESSFULLY.");
-        }else{
+        } else {
             System.out.println("INVALID EVENT ID.");
         }
     }
