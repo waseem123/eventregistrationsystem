@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,8 @@ public class EventOperations {
         Scanner sc = new Scanner(System.in);
         System.out.println("ENTER THE DATE OF EVENT IN DD-MM-YYYY FORMAT - ");
         String eventDate = sc.next();
-        if (!isEventBooked(eventDate)) {
+        Events bookedEvent = getBookedEvent(eventDate);
+        if (bookedEvent == null || bookedEvent.getEventStatus().equals("CANCELLED")) {
             /*BOOKING LOGIC*/
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("ENTER EVENT NAME - ");
@@ -70,8 +72,14 @@ public class EventOperations {
         return events;
     }
 
-    private boolean isEventBooked(String eventDate) throws ParseException {
-        return false;
+    private Events getBookedEvent(String eventDate) {
+        List<Events> events = getEvents(file_bookings);
+        if (events.size() != 0)
+            for (Events event : events) {
+                if (event.getEventDate().equals(eventDate))
+                    return event;
+            }
+        return null;
     }
 
     public void deleteEvent() {
@@ -83,15 +91,15 @@ public class EventOperations {
 
     private void displayEvents(List<Events> events) {
         if (events.size() > 0) {
-            System.out.println("========================================================================");
-            System.out.printf("%5s %11s %11s %15s %15s %9s", "ID", "EVENT NAME", "ORGANIZER", "BOOKING DATE", "EVENT DATE", "STATUS");
+            System.out.println("================================================================================");
+            System.out.printf("%5s %15s %15s %15s %15s %9s", "ID", "EVENT NAME", "ORGANIZER", "BOOKING DATE", "EVENT DATE", "STATUS");
             System.out.println();
-            System.out.println("========================================================================");
+            System.out.println("================================================================================");
             for (Events event : events) {
-                System.out.printf("%5s %11s %11s %15s %15s %9s", event.getEventId(), event.getEventName(), event.getEventOrganizer(), event.getBookingDate(), event.getEventDate(), event.getEventStatus());
+                System.out.printf("%5s %15s %15s %15s %15s %9s", event.getEventId(), event.getEventName(), event.getEventOrganizer(), event.getBookingDate(), event.getEventDate(), event.getEventStatus());
                 System.out.println();
             }
-            System.out.println("========================================================================");
+            System.out.println("================================================================================");
         } else {
             System.out.println("ERROR : NO DATA PRESENT AT THIS MOMENT.");
         }
