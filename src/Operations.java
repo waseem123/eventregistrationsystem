@@ -60,20 +60,25 @@ public class Operations {
         EventOperations eventOperations = new EventOperations();
         while (true) {
             System.out.println("1. REGISTER AN EVENT");
-            System.out.println("2. DELETE AN EVENT");
-            System.out.println("3. DISPLAY EVENTS");
-            System.out.println("4. BACK TO MAIN MENU");
+            System.out.println("2. CANCEL AN EVENT");
+            System.out.println("3. DELETE AN EVENT");
+            System.out.println("4. DISPLAY EVENTS");
+            System.out.println("5. BACK TO MAIN MENU");
 
             switch (sc.nextInt()) {
                 case 1:
                     eventOperations.registerEvent();
                     break;
                 case 2:
-                    eventOperations.deleteEvent();
+                    eventOperations.cancelEvent();
                     break;
                 case 3:
-                    eventOperations.getAllEvents();
+                    eventOperations.deleteEvent();
+                    break;
                 case 4:
+                    eventOperations.getAllEvents();
+                    break;
+                case 5:
                     return;
                 default:
                     System.out.println("NOT A VALID CHOICE");

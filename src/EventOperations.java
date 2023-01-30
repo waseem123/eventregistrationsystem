@@ -104,4 +104,25 @@ public class EventOperations {
             System.out.println("ERROR : NO DATA PRESENT AT THIS MOMENT.");
         }
     }
+
+    public void cancelEvent() {
+        Scanner sc = new Scanner(System.in);
+        List<Events> events = getEvents(file_bookings);
+        if (events.size() == 0) {
+            System.out.println("ERROR : NO EVENTS BOOKED AT THIS MOMENT.");
+            return;
+        }
+        getAllEvents();
+        System.out.print("ENTER AN EVENT ID YOU WANT TO CANCEL - ");
+        int eventId = sc.nextInt();
+
+
+        if (events.size() < eventId)
+            System.out.println("ERROR : INVALID EVENT ID.");
+        else {
+            events.get(eventId - 1).setEventStatus("CANCELLED");
+            System.out.println("EVENT CANCELLED SUCCESSFULLY.");
+        }
+    }
 }
+
