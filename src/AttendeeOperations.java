@@ -105,7 +105,7 @@ public class AttendeeOperations {
         }
     }
 
-    private List<Attendee> getAttendeesByEvent(String file_attendees, int eventId) {
+    public List<Attendee> getAttendeesByEvent(String file_attendees, int eventId) {
         List<Attendee> attendees = new ArrayList<>();
         File file = new File(file_attendees);
         Scanner sc;
@@ -185,7 +185,7 @@ public class AttendeeOperations {
                 System.out.println("INVALID ID.");
             } else {
                 List<Attendee> all_attendees = getAttendees(file_attendees);
-                System.out.println(index);
+//                System.out.println(index);
                 all_attendees.remove(index);
                 FileWriter fileWriter = new FileWriter(file_attendees);
                 String data = "";
@@ -209,7 +209,7 @@ public class AttendeeOperations {
         return -1;
     }
 
-    private List<Attendee> getAttendees(String file_attendees) {
+    public List<Attendee> getAttendees(String file_attendees) {
         List<Attendee> attendees = new ArrayList<>();
         File file = new File(file_attendees);
         Scanner sc;

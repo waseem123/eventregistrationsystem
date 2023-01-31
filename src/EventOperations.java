@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EventOperations {
-    private String file_bookings = "src/booking.txt";
+    private final String file_bookings = "src/booking.txt";
+    private final String file_attendees = "src/attendees.txt";
 
     public void registerEvent() throws IOException, ParseException {
         Scanner sc = new Scanner(System.in);
@@ -129,6 +130,29 @@ public class EventOperations {
             }
             fileWriter.write(data);
             fileWriter.close();
+            AttendeeOperations operations = new AttendeeOperations();
+            List<Attendee> event_attendees = operations.getAttendeesByEvent(file_attendees, eventId);
+
+            List<Attendee> all_attendees = operations.getAttendees(file_attendees);
+            all_attendees.removeAll(event_attendees);
+            /*List<Integer> indexes = new ArrayList<>();
+
+            for (int i=0;i<all_attendees.size();i++) {
+                for (Attendee a:event_attendees) {
+                    if(a.getAttendeeId()==all_attendees.get(i).getAttendeeId())
+                        indexes.add(i);
+                }
+            }
+            for (int i=0;i<indexes.size();i++)
+                all_attendees.remove((int)indexes.get(i));*/
+            FileWriter fileWriter1 = new FileWriter(file_attendees);
+            data = "";
+            for (Attendee a : all_attendees) {
+                data += a;
+            }
+            fileWriter1.write(data);
+            fileWriter1.close();
+
             System.out.println("EVENT DELETED SUCCESSFULLY.");
         } else
             System.out.println("ERROR : EVENT NOT PRESENT FOR THE GIVEN ID.");
