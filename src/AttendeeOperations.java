@@ -1,14 +1,11 @@
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class AttendeeOperations {
     EventOperations eventOperations = new EventOperations();
-    private String file_attendees = "src/attendees.txt";
+    private final String file_attendees = "src/attendees.txt";
 
     public void registerAttendee() throws IOException {
         Scanner sc = new Scanner(System.in);
@@ -47,13 +44,169 @@ public class AttendeeOperations {
         }
     }
 
-    public void editAttendee() {
+    public void searchAttendee() throws IOException {
+        while (true) {
+            System.out.println("1. SEARCH BY NAME");
+            System.out.println("2. SEARCH BY EMAIL");
+            System.out.println("3. SEARCH BY MOBILE NO");
+            System.out.println("4. SEARCH BY EVENT");
+            System.out.println("5. BACK TO PREVIOUS MENU");
+            Scanner sc = new Scanner(System.in);
+            int choice = sc.nextInt();
+            Attendee a = null;
+            switch (choice) {
+                case 1:
+                    a = searchByName();
+                    if (a == null)
+                        System.out.println("ATTENDEE NOT FOUND");
+                    else {
+                        System.out.println("================================================");
+                        System.out.println("ATTENDEE NAME      - " + a.getAttendeeName());
+                        System.out.println("ATTENDEE EMAIL     - " + a.getAttendeeEmail());
+                        System.out.println("ATTENDEE MOBILE NO - " + a.getAttendeeMobileNo());
+                        System.out.println("================================================");
+                    }
+                    break;
+                case 2:
+                    a = searchByEmail();
+                    if (a == null)
+                        System.out.println("ATTENDEE NOT FOUND");
+                    else {
+                        System.out.println("================================================");
+                        System.out.println("ATTENDEE NAME      - " + a.getAttendeeName());
+                        System.out.println("ATTENDEE EMAIL     - " + a.getAttendeeEmail());
+                        System.out.println("ATTENDEE MOBILE NO - " + a.getAttendeeMobileNo());
+                        System.out.println("================================================");
+                    }
+                    break;
+                case 3:
+                    a = searchByMobileNo();
+                    if (a == null)
+                        System.out.println("ATTENDEE NOT FOUND");
+                    else {
+                        System.out.println("================================================");
+                        System.out.println("ATTENDEE NAME      - " + a.getAttendeeName());
+                        System.out.println("ATTENDEE EMAIL     - " + a.getAttendeeEmail());
+                        System.out.println("ATTENDEE MOBILE NO - " + a.getAttendeeMobileNo());
+                        System.out.println("================================================");
+                    }
+                    break;
+                case 4:
+                    eventOperations.getAllEvents();
+                    System.out.print("ENTER THE EVENT ID TO SEARCH THE ATTENDEE - ");
+                    int eventId = sc.nextInt();
+                    displayAttendees(getAttendeesByEvent(file_attendees, eventId));
+                    break;
+                case 5:
+                    return;
+                default:
+                    System.out.println("INVALID INPUT");
+            }
+        }
     }
 
-    public void searchAttendee() {
+    private List<Attendee> getAttendeesByEvent(String file_attendees, int eventId) {
+        List<Attendee> attendees = new ArrayList<>();
+        File file = new File(file_attendees);
+        Scanner sc;
+        try {
+            sc = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        while (sc.hasNext()) {
+            String[] lines = sc.nextLine().split(",");
+            for (String line : lines) {
+                String[] content = line.split(":");
+                int eId = Integer.parseInt(content[4]);
+                if (eId == eventId)
+                    attendees.add(new Attendee(
+                                    Integer.parseInt(content[0]),
+                                    content[1],
+                                    content[2],
+                                    content[3],
+                                    Integer.parseInt(content[4])
+                            )
+                    );
+            }
+        }
+        return attendees;
     }
 
-    public void deleteAttendee() {
+    private Attendee searchByMobileNo() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("ENTER MOBILE NUMBER OF ATTENDEE - ");
+        String mobileNo = br.readLine();
+        List<Attendee> attendees = getAttendees(file_attendees);
+        for (Attendee attendee : attendees) {
+            if (attendee.getAttendeeMobileNo().equals(mobileNo))
+                return attendee;
+        }
+        return null;
+    }
+
+    private Attendee searchByEmail() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("ENTER EMAIL ID OF ATTENDEE - ");
+        String email = br.readLine();
+        List<Attendee> attendees = getAttendees(file_attendees);
+        for (Attendee attendee : attendees) {
+            if (attendee.getAttendeeEmail().equals(email))
+                return attendee;
+        }
+        return null;
+    }
+
+    private Attendee searchByName() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("ENTER NAME ID OF ATTENDEE - ");
+        String attendeeName = br.readLine();
+        List<Attendee> attendees = getAttendees(file_attendees);
+        for (Attendee attendee : attendees) {
+            if (attendee.getAttendeeName().equals(attendeeName))
+                return attendee;
+        }
+        return null;
+    }
+
+    public void deleteAttendee() throws IOException {
+        eventOperations.getAllEvents();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("ENTER THE EVENT ID TO DELETE THE ATTENDEE FROM - ");
+        int eventId = sc.nextInt();
+        List<Attendee> attendees = getAttendeesByEvent(file_attendees, eventId);
+
+        if (attendees.size() > 0) {
+            displayAttendees(attendees);
+            System.out.print("ENTER THE ATTENDEE'S ID TO DELETE - ");
+            int attendeeId = sc.nextInt();
+            int index = getAttendeeById(attendees, attendeeId);
+            if (index == -1) {
+                System.out.println("INVALID ID.");
+            } else {
+                List<Attendee> all_attendees = getAttendees(file_attendees);
+                System.out.println(index);
+                all_attendees.remove(index);
+                FileWriter fileWriter = new FileWriter(file_attendees);
+                String data = "";
+                for (Attendee a : all_attendees) {
+                    System.out.println(a);
+                    data += a;
+                }
+                fileWriter.write(data);
+                fileWriter.close();
+                System.out.println("ATTENDEE DELETED SUCCESSFULLY.");
+            }
+        }else System.out.println("ERROR : NO DATA PRESENT AT THIS MOMENT.");
+
+    }
+
+    private int getAttendeeById(List<Attendee> attendees, int attendeeId) {
+        for (int i=0;i<attendees.size();i++) {
+            if (attendees.get(i).getAttendeeId() == attendeeId)
+                return i;
+        }
+        return -1;
     }
 
     private List<Attendee> getAttendees(String file_attendees) {
@@ -80,5 +233,21 @@ public class AttendeeOperations {
             }
         }
         return attendees;
+    }
+
+    private void displayAttendees(List<Attendee> attendees) {
+        if (attendees.size() > 0) {
+            System.out.println("================================================================================");
+            System.out.printf("%5s %15s %15s %15s", "ID", "ATTENDEE NAME", "EMAIL", "MOBILE NUMBER");
+            System.out.println();
+            System.out.println("================================================================================");
+            for (Attendee attendee : attendees) {
+                System.out.printf("%5s %15s %15s %15s", attendee.getAttendeeId(), attendee.getAttendeeName(), attendee.getAttendeeEmail(), attendee.getAttendeeMobileNo());
+                System.out.println();
+            }
+            System.out.println("================================================================================");
+        } else {
+            System.out.println("ERROR : NO DATA PRESENT AT THIS MOMENT.");
+        }
     }
 }
