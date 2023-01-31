@@ -16,22 +16,18 @@ public class Main {
 //            if (o.login()) {
             if (true) {
                 do {
-                    System.out.println("1. VENUES");
-                    System.out.println("2. EVENTS");
-                    System.out.println("3. ATTENDEES");
-                    System.out.println("4. EXIT");
+                    System.out.println("1. EVENTS");
+                    System.out.println("2. ATTENDEES");
+                    System.out.println("3. EXIT");
 //                    try {
                         switch (sc.nextInt()) {
                             case 1:
-                                o.getVenueMenu();
-                                break;
-                            case 2:
                                 o.getEventMenu();
                                 break;
-                            case 3:
+                            case 2:
                                 o.getAttendeeMenu();
                                 break;
-                            case 4:
+                            case 3:
                                 System.out.println("THANKS VISIT AGAIN.");
                                 return;
                             default:

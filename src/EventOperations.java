@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -100,7 +99,7 @@ public class EventOperations {
         return events;
     }
 
-    private Events getBookedEvent(String eventDate) {
+    public Events getBookedEvent(String eventDate) {
         List<Events> events = getEvents(file_bookings);
         if (events.size() != 0)
             for (Events event : events) {

@@ -28,7 +28,7 @@ public class Operations {
         return status;
     }
 
-    public void getAttendeeMenu() {
+    public void getAttendeeMenu() throws IOException {
         Scanner sc = new Scanner(System.in);
         AttendeeOperations attendeeOperations = new AttendeeOperations();
         while (true) {
@@ -81,6 +81,8 @@ public class Operations {
                     break;
                 case 5:
                     eventOperations.resetData();
+                    break;
+                case 6:
                     return;
                 default:
                     System.out.println("NOT A VALID CHOICE");
