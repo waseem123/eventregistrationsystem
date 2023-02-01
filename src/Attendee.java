@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Attendee {
     private int attendeeId;
     private String attendeeName;
@@ -51,6 +53,19 @@ public class Attendee {
 
     public void setAttendeeEventId(int attendeeEventId) {
         this.attendeeEventId = attendeeEventId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Attendee attendee = (Attendee) o;
+        return attendeeId == attendee.attendeeId && attendeeEventId == attendee.attendeeEventId && attendeeName.equals(attendee.attendeeName) && attendeeEmail.equals(attendee.attendeeEmail) && attendeeMobileNo.equals(attendee.attendeeMobileNo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(attendeeId, attendeeName, attendeeEmail, attendeeMobileNo, attendeeEventId);
     }
 
     @Override
