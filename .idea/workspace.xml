@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a2011e1c-a8ce-4e67-bb2a-8f30659264da" name="Changes" comment="Main Menu and Sub-Menu">
-      <change beforePath="$PROJECT_DIR$/src/EventOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventOperations.java" afterDir="false" />
-    </list>
+    <list default="true" id="a2011e1c-a8ce-4e67-bb2a-8f30659264da" name="Changes" comment="Main Menu and Sub-Menu" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -139,7 +137,21 @@
       <option name="project" value="LOCAL" />
       <updated>1675226189508</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Main Menu and Sub-Menu">
+      <created>1675226333311</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1675226333311</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Main Menu and Sub-Menu">
+      <created>1675226385711</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1675226385711</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
