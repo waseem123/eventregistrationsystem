@@ -203,6 +203,7 @@ public class EventOperations {
             }
             fileWriter.write(data);
             fileWriter.close();
+            deleteAttendeesByEvent(eventId);
             System.out.println("EVENT CANCELLED SUCCESSFULLY.");
         } else {
             System.out.println("INVALID EVENT ID.");
